@@ -67,6 +67,9 @@ public class ProblemService {
     @Transactional(readOnly = true)
     public ProblemVo getProblem() {
         Optional<Problem> first = problemRepository.getProblemByIsCompleted(false).stream().findFirst();
+        if (first.isEmpty()) {
+            return null;
+        }
         System.out.println(first.get().getItems().get(0).getContent());
         System.out.println(first.get().getItems().get(1).getContent());
         return first.map(ProblemVo::toProblemVo).orElse(null);

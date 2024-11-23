@@ -13,6 +13,7 @@ public class Item {
 
     private String content;
 
+    @Column(columnDefinition = "BOOLEAN")
     private Boolean isSelected;
 
     @ManyToOne
@@ -22,12 +23,10 @@ public class Item {
     protected Item() {}
 
     public Item(
-            final String content,
-            final Problem problem
+            final String content
     ) {
         this.content = content;
         this.isSelected = false;
-        this.problem = problem;
     }
 
     public Long getId() {

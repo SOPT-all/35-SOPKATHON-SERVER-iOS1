@@ -2,13 +2,19 @@ package org.sopt.sopkathon.domain.problem.api.controller;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import org.sopt.sopkathon.domain.problem.api.dto.request.PathRequest;
 import org.sopt.sopkathon.domain.problem.api.dto.response.ProblemsApiResponse;
 import org.sopt.sopkathon.domain.problem.api.service.ProblemService;
 import org.sopt.sopkathon.domain.problem.api.vo.ProblemsVo;
 import org.sopt.sopkathon.domain.problem.api.vo.response.ProblemResponseVo;
 import org.sopt.sopkathon.domain.problem.api.vo.response.ProblemsResponseVo;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,5 +42,14 @@ public class ProblemController {
         );
 
         return ResponseEntity.ok(problemsApiResponse);
+    }
+
+    @PutMapping("/{problemId}")
+    public ResponseEntity<String> patchProblem(
+            final @PathVariable Long problemId,
+            final @RequestBody PathRequest pathRequest
+            ) {
+        problemService.patchProblem(problemId, pathRequest.itemId());
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

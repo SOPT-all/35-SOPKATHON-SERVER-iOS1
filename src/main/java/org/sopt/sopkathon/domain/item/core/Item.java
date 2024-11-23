@@ -49,4 +49,8 @@ public class Item {
     public void setProblem(Problem problem) {
         this.problem = problem;
     }
+
+    public void setIsSelected(final boolean isSelected) {
+        this.isSelected = isSelected;
+    }
 }

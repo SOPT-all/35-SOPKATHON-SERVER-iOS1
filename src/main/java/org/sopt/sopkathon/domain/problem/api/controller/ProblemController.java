@@ -2,10 +2,13 @@ package org.sopt.sopkathon.domain.problem.api.controller;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import org.sopt.sopkathon.domain.problem.api.dto.request.CreateProblemRequestDTO;
 import org.sopt.sopkathon.domain.problem.api.dto.request.PathRequest;
 import org.sopt.sopkathon.domain.problem.api.dto.response.ProblemsApiResponse;
 import org.sopt.sopkathon.domain.problem.api.service.ProblemService;
+import org.sopt.sopkathon.domain.problem.api.vo.ProblemVo;
 import org.sopt.sopkathon.domain.problem.api.vo.ProblemsVo;
+import org.sopt.sopkathon.domain.problem.api.vo.response.ProblemCurrentApiResponse;
 import org.sopt.sopkathon.domain.problem.api.vo.response.ProblemResponseVo;
 import org.sopt.sopkathon.domain.problem.api.vo.response.ProblemsResponseVo;
 import org.springframework.http.HttpStatus;
@@ -51,5 +54,23 @@ public class ProblemController {
             ) {
         problemService.patchProblem(problemId, pathRequest.itemId());
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createProblems(@RequestBody CreateProblemRequestDTO request){
+        problemService.createProblem(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/current")
+    public ResponseEntity<ProblemCurrentApiResponse> getProblem() {
+        ProblemVo problem = problemService.getProblem();
+
+        ProblemCurrentApiResponse problemCurrentApiResponse = ProblemCurrentApiResponse.of(
+                problem == null,
+                problem
+        );
+
+        return ResponseEntity.ok(problemCurrentApiResponse);
     }
 }

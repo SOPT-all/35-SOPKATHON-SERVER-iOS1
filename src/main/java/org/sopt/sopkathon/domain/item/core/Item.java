@@ -23,10 +23,11 @@ public class Item {
     protected Item() {}
 
     public Item(
-            final String content
+            final String content,
+            final Boolean isSelected
     ) {
         this.content = content;
-        this.isSelected = false;
+        this.isSelected = isSelected;
     }
 
     public Long getId() {

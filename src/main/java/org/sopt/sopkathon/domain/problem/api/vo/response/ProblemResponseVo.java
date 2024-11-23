@@ -1,7 +1,9 @@
-package org.sopt.sopkathon.domain.item.api.vo.response;
+package org.sopt.sopkathon.domain.problem.api.vo.response;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.sopt.sopkathon.domain.item.api.vo.response.ItemResponseVo;
+import org.sopt.sopkathon.domain.item.api.vo.response.ItemsResponseVo;
 import org.sopt.sopkathon.domain.problem.api.vo.ProblemVo;
 
 public record ProblemResponseVo(

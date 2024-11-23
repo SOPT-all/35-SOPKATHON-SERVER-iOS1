@@ -1,8 +1,8 @@
-package org.sopt.sopkathon.domain.item.api.dto.response;
+package org.sopt.sopkathon.domain.problem.api.dto.response;
 
 import java.util.List;
-import org.sopt.sopkathon.domain.item.api.vo.response.ProblemResponseVo;
-import org.sopt.sopkathon.domain.item.api.vo.response.ProblemsResponseVo;
+import org.sopt.sopkathon.domain.problem.api.vo.response.ProblemResponseVo;
+import org.sopt.sopkathon.domain.problem.api.vo.response.ProblemsResponseVo;
 
 public record ProblemsApiResponse(
         List<ProblemResponseVo> problems

@@ -1,5 +1,6 @@
 package org.sopt.sopkathon.domain.problem.api.service;
 
+import java.time.LocalDateTime;
 import org.sopt.sopkathon.domain.problem.api.vo.ProblemVo;
 import org.sopt.sopkathon.domain.problem.api.vo.ProblemsVo;
 import org.sopt.sopkathon.domain.problem.core.Problem;
@@ -19,7 +20,7 @@ public class ProblemService {
     @Transactional(readOnly = true)
     public ProblemsVo getNotCompletedProblems() {
         return ProblemsVo.toProblemsVo(
-                problemRepository.getProblemByCompletedFalse().stream()
+                problemRepository.getProblemByIsCompleted(false).stream()
                         .map(ProblemVo::toProblemVo)
                         .toList()
         );
@@ -39,5 +40,8 @@ public class ProblemService {
                 item.setIsSelected(true);
             }
         });
+
+        problem.setCompletedAt(LocalDateTime.now());
+        problem.setCompleted(true);
     }
 }

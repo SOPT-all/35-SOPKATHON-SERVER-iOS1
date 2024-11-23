@@ -27,7 +27,8 @@ public class Problem {
 
     private LocalDateTime completedAt;
 
-    private boolean isCompleted;
+    @Column(columnDefinition = "BOOLEAN")
+    private Boolean isCompleted;
 
     protected Problem() {}
 
@@ -67,5 +68,13 @@ public class Problem {
 
     public boolean isCompleted() {
         return isCompleted;
+    }
+
+    public void setCompletedAt(LocalDateTime completedAt) {
+        this.completedAt = completedAt;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 }

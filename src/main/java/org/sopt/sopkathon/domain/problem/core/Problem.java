@@ -1,6 +1,7 @@
 package org.sopt.sopkathon.domain.problem.core;
 
 import jakarta.persistence.*;
+import java.util.List;
 import org.sopt.sopkathon.domain.item.core.Item;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,9 +16,8 @@ public class Problem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
-    private Item item;
+    @OneToMany(mappedBy = "problem")
+    private List<Item> items;
 
     private String title;
 
@@ -29,11 +29,43 @@ public class Problem {
 
     private boolean isCompleted;
 
-    public Long getId() { return id; }
+    protected Problem() {}
 
-    public String getTitle() { return title; }
+    public Problem(
+            final String title,
+            final List<Item> items
+    ) {
+        this.title = title;
+        this.items = items;
+        this.completedAt = null;
+        this.isCompleted = false;
 
-    public boolean isCompleted() { return false; }
+        items.forEach(item -> {
+            item.setProblem(this);
+        });
+    }
 
-    public Item getItem() { return item; }
+    public Long getId() {
+        return id;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getCompletedAt() {
+        return completedAt;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
 }

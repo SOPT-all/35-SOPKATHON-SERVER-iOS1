@@ -2,10 +2,13 @@ package org.sopt.sopkathon.domain.problem.core;
 
 import jakarta.persistence.*;
 import org.sopt.sopkathon.domain.item.core.Item;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name="problem")
 public class Problem {
     @Id
@@ -18,7 +21,11 @@ public class Problem {
 
     private String title;
 
-    private LocalDate completedAt;
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    private LocalDateTime completedAt;
 
     private boolean isCompleted;
 
